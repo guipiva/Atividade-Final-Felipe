@@ -105,8 +105,8 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/api-sast:${{ steps.version.outputs.new_version }}
             ${{ secrets.DOCKERHUB_USERNAME }}/api-sast:sha-${{ steps.set-sha.outputs.short_sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/api-sast:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/api-sast:cache
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/api-sast:cache,mode=max
+          cache-from: "type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/api-sast:cache"
+          cache-to: "type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/api-sast:cache,mode=max"
 
       - name: Trigger Render deploy
         if: steps.version.outputs.new_version != ''
