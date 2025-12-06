@@ -3,11 +3,11 @@ const router = express.Router();
 
 
 let items = [
-  { id: 1, name: 'Laptop Dell', description: 'Notebook profissional 16GB RAM', price: 4500 },
-  { id: 2, name: 'Mouse Logitech', description: 'Mouse wireless ergonômico', price: 150 },
-  { id: 3, name: 'Teclado Mecânico', description: 'Teclado RGB switches blue', price: 350 },
-  { id: 4, name: 'Monitor LG 27"', description: 'Monitor Full HD IPS', price: 1200 },
-  { id: 5, name: 'Headset Gamer', description: 'Headset 7.1 surround', price: 280 }
+  { id: 1, name: 'Smartphone Samsung', description: 'Smartphone Android 128GB, 8GB RAM', price: 2599 },
+  { id: 2, name: 'Fone Bluetooth', description: 'Fone de ouvido Bluetooth com cancelamento de ruído', price: 299 },
+  { id: 3, name: 'Cadeira Ergonômica', description: 'Cadeira escritório com suporte lombar', price: 899 },
+  { id: 4, name: 'Webcam Full HD', description: 'Webcam 1080p com microfone integrado', price: 219 },
+  { id: 5, name: 'SSD NVMe 1TB', description: 'SSD NVMe de alta velocidade 1TB', price: 649 }
 ];
 
 router.get('/items', (req, res) => res.json(items));
