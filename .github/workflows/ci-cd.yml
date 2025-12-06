@@ -32,11 +32,9 @@ jobs:
       - name: Cache Node modules
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.npm
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json', '**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          restore-keys: ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
@@ -52,7 +50,6 @@ jobs:
         env:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          # Use the commit message that triggered the workflow
           NEW_VER=$(node tools/increment-version.js "$COMMIT_MSG" | tail -n1)
           echo "new_version=$NEW_VER" >> $GITHUB_OUTPUT
           echo "Bumped version to $NEW_VER based on commit: $COMMIT_MSG"
@@ -67,12 +64,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git add package.json
           git commit -m "chore(release): version $NEW_VERSION" || echo "no changes to commit"
-          # delete existing tag if exists (local and remote)
           git tag -d "v$NEW_VERSION" 2>/dev/null || true
           git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}" ":refs/tags/v$NEW_VERSION" 2>/dev/null || true
-          # push the version commit
           git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}" HEAD:main || echo "failed to push commit"
-          # create and push new tag
           git tag "v$NEW_VERSION"
           git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}" refs/tags/v$NEW_VERSION
 
@@ -82,13 +76,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          args: >
-            -Dsonar.branch.name=main
+          args: -Dsonar.branch.name=main
 
       - name: Set short SHA
         id: set-sha
-        run: |
-          echo "short_sha=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
+        run: echo "short_sha=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
 
       - name: Docker Login
         uses: docker/login-action@v3
@@ -96,7 +88,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image (tags: version, sha, latest)
+      - name: Build and push Docker image
         if: steps.version.outputs.new_version != ''
         uses: docker/build-push-action@v4
         with:
