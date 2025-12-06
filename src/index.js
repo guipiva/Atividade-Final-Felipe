@@ -47,5 +47,5 @@ app.listen(port, async () => {
   await tryDbConnect();
 });
 
-// Test commit for pipeline validation
+// Pipeline test after secrets configured
 module.exports = app;
