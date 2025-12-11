@@ -7,7 +7,7 @@ let items = [
   { id: 2, name: 'Fone Bluetooth', description: 'Fone de ouvido Bluetooth com cancelamento de ruído', price: 299 },
   { id: 3, name: 'Cadeira Ergonômica', description: 'Cadeira escritório com suporte lombar', price: 899 },
   { id: 4, name: 'Webcam Full HD', description: 'Webcam 1080p com microfone integrado', price: 219 },
-  { id: 5, name: 'SSD NVMe 1TB', description: 'SSD NVMe de alta velocidade 1TB', price: 649 }
+  { id: 5, name: 'SSD NVMe 2TB', description: 'SSD NVMe de alta velocidade 2TB', price: 649 }
 ];
 
 router.get('/items', (req, res) => res.json(items));
